@@ -9,6 +9,24 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -29,6 +47,18 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { createElement, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 
 type Props = {};
 
@@ -44,6 +74,317 @@ const Packages = (props: Props) => {
     </main>
   );
 };
+
+function OrderForm({ label }: { label: string }) {
+  const formSchema = z.object({
+    pospackage: z.string().refine(
+      (value) => {
+        const allowedValues = ["Standard POS", "Touch POS", "All-in-One POS"];
+        return allowedValues.includes(value);
+      },
+      {
+        message: "Invalid POS package. Please select a valid package.",
+      }
+    ),
+    firstname: z.string().min(2, {
+      message: "First name must be at least 2 characters.",
+    }),
+    lastname: z.string().min(2, {
+      message: "Last name must be at least 2 characters.",
+    }),
+    email: z.string().email({
+      message: "Invalid email format. Please provide a valid email address.",
+    }),
+    businessname: z.string().optional(),
+    posunits: z.string().optional(),
+    note: z.string().optional(),
+    useragrees: z.boolean().refine((value) => value === true, {
+      message:
+        "To proceed, you must agree to the following terms and conditions.",
+    }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      businessname: "",
+      posunits: "",
+      note: "",
+      useragrees: false,
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger
+        className={`uppercase w-full h-12 rounded-lg md:h-14 font-semibold mt-10 !text-base ${
+          label === "Touch POS"
+            ? "bg-gradient-to-r from-amber-500 text-white via-orange-500 to-orange-500"
+            : label === "Standard POS"
+            ? "!border-gray-500 border dark:border-gray-400"
+            : "bg-orange-500 text-white"
+        }`}>
+        get a quote
+      </DialogTrigger>
+      <DialogContent className='p-8 md:h-4/5 h-screen overflow-y-auto md:overflow-y-clip md:w-4/5 max-w-7xl w-full'>
+        <DialogHeader>
+          <DialogTitle className='border-b scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center uppercase'>
+            get a quote
+          </DialogTitle>
+          <DialogDescription className='text-sentence text-center !text-muted-foreground !mt-6'>
+            We do not currently offer online payment options. However, you can
+            request a quotation by filling out the form below.
+            <span className='block' /> If you need further assistance, please
+            don&apos;t hesitate to contact us through the following
+            communication channels:
+          </DialogDescription>
+        </DialogHeader>
+        <div className='mt-6 md:overflow-y-auto'>
+          <div className='flex flex-col md:flex-row-reverse gap-8 flex-1 justify-center md:mx-4'>
+            <div className='basis-full md:basis-3/4 md:rounded-lg md:border md:p-6'>
+              <Form {...form}>
+                <form
+                  className='space-y-8 max-w-2xl mx-auto'
+                  onSubmit={form.handleSubmit(onSubmit)}>
+                  <div className='space-y-4'>
+                    <FormField
+                      control={form.control}
+                      name='pospackage'
+                      render={({ field }) => (
+                        <FormItem id='pospackage'>
+                          <FormLabel>
+                            <span className='text-base'>POS Package</span>
+                          </FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder='Select your POS Package' />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value='All-in-One POS'>
+                                All-in-One POS
+                              </SelectItem>
+                              <SelectItem value='Touch POS'>
+                                Touch POS
+                              </SelectItem>
+                              <SelectItem value='Standard POS'>
+                                Standard POS
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='firstname'
+                      render={({ field }) => (
+                        <FormItem id='firstname'>
+                          <FormLabel>
+                            <span className='text-base after:content-["*"] after:ml-0.5 after:text-red-500'>
+                              First name
+                            </span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder='First name'
+                              className='xs:text-base'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='lastname'
+                      render={({ field }) => (
+                        <FormItem id='lastname'>
+                          <FormLabel>
+                            <span className='text-base after:content-["*"] after:ml-0.5 after:text-red-500'>
+                              Last name
+                            </span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder='Last name'
+                              className='xs:text-base'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='email'
+                      render={({ field }) => (
+                        <FormItem id='emailaddress'>
+                          <FormLabel>
+                            <span className='text-base after:content-["*"] after:ml-0.5 after:text-red-500'>
+                              Email address
+                            </span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder='Email address'
+                              className='xs:text-base'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='businessname'
+                      render={({ field }) => (
+                        <FormItem id='businessname'>
+                          <FormLabel>
+                            <span className='text-base'>Business name</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder='Business name'
+                              className='xs:text-base'
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='posunits'
+                      render={({ field }) => (
+                        <FormItem id='posunits'>
+                          <FormLabel>
+                            <span className='text-base'>
+                              How many unit/s will you purchase?
+                            </span>
+                          </FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder='Select the number of POS units you want to purchase' />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value='1 POS Unit'>
+                                1 POS Unit
+                              </SelectItem>
+                              <SelectItem value='2 POS Units'>
+                                2 POS Units
+                              </SelectItem>
+                              <SelectItem value='3 - 5 POS Units'>
+                                3 - 5 POS Units
+                              </SelectItem>
+                              <SelectItem value='5 or more POS Units'>
+                                5 or more POS Units
+                              </SelectItem>
+                              <SelectItem value='Will decide later'>
+                                Will decide later
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='note'
+                      render={({ field }) => (
+                        <FormItem id='note'>
+                          <FormLabel>
+                            <span className='text-base'>Note</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder='Additional message or request'
+                              className='resize-none text-sm xs:text-base'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='useragrees'
+                      render={({ field }) => (
+                        <FormItem id='useragrees'>
+                          <div className='flex flex-row items-center py-4'>
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className='mr-3'
+                              />
+                            </FormControl>
+                            <div>
+                              <FormLabel className='!mt-0 text-base !mb-0'>
+                                I hereby confirm that I am at least 18 years old
+                                and agree to the{" "}
+                                <Link
+                                  href='/terms-and-conditions'
+                                  className='underline hover:text-orange-500 underline-offset-2'>
+                                  Terms and Conditions
+                                </Link>{" "}
+                                and{" "}
+                                <Link
+                                  href='/privacy-policy'
+                                  className='underline hover:text-orange-500 underline-offset-2'>
+                                  Privacy Policy
+                                </Link>
+                              </FormLabel>
+                            </div>
+                          </div>
+                          <FormMessage className='pl-6' />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className='w-full md:w-fit md:mx-0 mx-auto'>
+                    <Button
+                      size='lg'
+                      className='text-base w-full'
+                      type='submit'>
+                      Submit
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+            <aside className='basis-full md:basis-1/2 h-auto bg-inherit'>
+              <div className='sticky top-4'>
+                <header>
+                  <h3>Contact Information</h3>
+                </header>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 function PriceCard() {
   const [inclusionsOpen, setinclusionsOpen] = useState(null);
@@ -103,26 +444,7 @@ function PriceCard() {
                     </div>
                     <p className='text-base leading-relaxed'>{desc}</p>
                   </header>
-                  {label === "Touch POS" ? (
-                    <Button
-                      size='xl'
-                      className='uppercase font-semibold mt-10 !text-base bg-gradient-to-r from-amber-500 via-orange-500 to-orange-500'>
-                      Get a quote
-                    </Button>
-                  ) : index === 0 ? (
-                    <Button
-                      size='xl'
-                      className='mt-10 font-semibold uppercase !text-base'>
-                      Get a quote
-                    </Button>
-                  ) : (
-                    <Button
-                      variant='outline'
-                      size='xl'
-                      className='mt-10 border-gray-500 dark:border-gray-400 font-semibold uppercase !text-base'>
-                      Get a quote
-                    </Button>
-                  )}
+                  <OrderForm label={label} />
                   <Button
                     onClick={() => toggleinclusions(index)}
                     variant='outline'

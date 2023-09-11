@@ -54,12 +54,21 @@ function SoftwareFeatures() {
             {featureCard.map(({ img, label, desc }, index) => (
               <div
                 key={index}
-                className='border flex max-w-sm mx-auto flex-1 flex-nowrap rounded-l-md rounded-lg p-4'>
-                <div>
-                  <figure className='rounded-lg h-32'></figure>
+                className='border flex max-w-sm mx-auto flex-1 flex-nowrap rounded-l-md rounded-lg p-6'>
+                <div className='space-y-4'>
+                  <div className='w-full flex items-center justify-center h-48'>
+                    <Image
+                      src={img}
+                      alt={label}
+                      width={1000}
+                      height={1000}
+                      quality={100}
+                      className='h-full w-full object-contain drop-shadow-2xl'
+                    />
+                  </div>
                   <div>
                     <h4 className='text-orange-500'>{label}</h4>
-                    <p className='text-muted-foreground text-sm md:text-lg'>
+                    <p className='text-muted-foreground !mt-2 text-sm md:text-lg'>
                       {desc}
                     </p>
                   </div>
@@ -150,22 +159,22 @@ function Banner() {
 
 const featureCard = [
   {
-    img: "",
+    img: "/features_images/card-image-2.png",
     label: "Invoices & Document",
     desc: "Issue regular receipt, generate invoices, ins & outs, transfer stocks, and more!",
   },
   {
-    img: "",
+    img: "/features_images/card-image-4.png",
     label: "Reporting",
     desc: "Automatically generate insightful reports at the click of a button, saving you time and effort.",
   },
   {
-    img: "",
+    img: "/features_images/card-image-1.png",
     label: "Inventory Management",
     desc: "Keep your inventory flawlessly organized, so you can focus on what really matters.",
   },
   {
-    img: "",
+    img: "/features_images/card-image-3.png",
     label: "Low Stock Alert",
     desc: "Never run out of stock again. The POS alerts you when it's time to restock those best-sellers.",
   },

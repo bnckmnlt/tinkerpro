@@ -4,6 +4,8 @@ import { Archivo } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/main-nav";
 import Footer from "@/components/main-footer";
+import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Archivo({ subsets: ["latin"] });
 
@@ -27,8 +29,10 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Navbar />
           {children}
+          <Toaster />
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

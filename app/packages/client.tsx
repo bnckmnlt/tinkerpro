@@ -20,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -59,6 +58,8 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {};
 
@@ -76,6 +77,9 @@ const Packages = (props: Props) => {
 };
 
 function OrderForm({ label }: { label: string }) {
+  const [isLoading, setIsLoading] = useState(null);
+  const { toast } = useToast();
+
   const formSchema = z.object({
     pospackage: z.string().refine(
       (value) => {
@@ -117,37 +121,52 @@ function OrderForm({ label }: { label: string }) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    // toast({
+    //   variant: "destructive",
+    //   title: "Something went wrong.",
+    //   description: "There was a problem with your request.",
+    //   action: <ToastAction altText='Try again'>Try again</ToastAction>,
+    // });
+    toast({
+      title: "Sending request...",
+      description: "Processing. Please wait a moment.",
+    });
   }
 
   return (
     <Dialog>
       <DialogTrigger
-        className={`uppercase w-full h-12 rounded-lg md:h-14 font-semibold mt-10 !text-base ${
+        className={`uppercase w-full shadow-sm rounded-lg h-12 font-semibold mt-10 !text-base ${
           label === "Touch POS"
             ? "bg-gradient-to-r from-amber-500 text-white via-orange-500 to-orange-500"
             : label === "Standard POS"
-            ? "!border-gray-500 border dark:border-gray-400"
+            ? "!border-gray-900/10 border dark:!border-gray-600/30"
             : "bg-orange-500 text-white"
         }`}>
         get a quote
       </DialogTrigger>
-      <DialogContent className='p-8 md:h-4/5 h-screen overflow-y-auto md:overflow-y-clip md:w-4/5 max-w-7xl w-full'>
+      <DialogContent className='p-12 md:h-4/5 h-screen overflow-y-auto md:overflow-y-clip md:w-4/5 max-w-7xl w-full'>
         <DialogHeader>
           <DialogTitle className='border-b scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center uppercase'>
             get a quote
           </DialogTitle>
-          <DialogDescription className='text-sentence text-center !text-muted-foreground !mt-6'>
-            We do not currently offer online payment options. However, you can
-            request a quotation by filling out the form below.
-            <span className='block' /> If you need further assistance, please
-            don&apos;t hesitate to contact us through the following
-            communication channels:
+          <DialogDescription className='!mt-4'>
+            <div className='flex flex-col items-center gap-2 p-2 border dark:border-sky-500 md:flex-row w-fit md:items-start rounded-lg mx-auto'>
+              <InformationCircleIcon className='h-5 w-5 hidden md:block dark:text-sky-500 mt-1' />
+              <p className='!mt-0 !text-sentence dark:text-sky-500'>
+                Online purchase of packages is currently unavailable. However,
+                you can request a quotation by filling out the form below.
+                <span className='block' /> If you need further assistance,
+                please don&apos;t hesitate to contact us through the following
+                communication channels:
+              </p>
+            </div>
           </DialogDescription>
         </DialogHeader>
         <div className='mt-6 md:overflow-y-auto'>
-          <div className='flex flex-col md:flex-row-reverse gap-8 flex-1 justify-center md:mx-4'>
+          <div className='flex flex-col md:flex-row-reverse gap-12 md:gap-8 flex-1 justify-center md:mx-4'>
             <div className='basis-full md:basis-3/4 md:rounded-lg md:border md:p-6'>
               <Form {...form}>
                 <form
@@ -317,7 +336,7 @@ function OrderForm({ label }: { label: string }) {
                           <FormControl>
                             <Textarea
                               placeholder='Additional message or request'
-                              className='resize-none text-sm xs:text-base'
+                              className='resize-none focus:!border-none text-sm xs:text-base'
                               {...field}
                             />
                           </FormControl>
@@ -340,8 +359,7 @@ function OrderForm({ label }: { label: string }) {
                             </FormControl>
                             <div>
                               <FormLabel className='!mt-0 text-base !mb-0'>
-                                I hereby confirm that I am at least 18 years old
-                                and agree to the{" "}
+                                I hereby confirm that I agree to the{" "}
                                 <Link
                                   href='/terms-and-conditions'
                                   className='underline hover:text-orange-500 underline-offset-2'>
@@ -373,10 +391,33 @@ function OrderForm({ label }: { label: string }) {
               </Form>
             </div>
             <aside className='basis-full md:basis-1/2 h-auto bg-inherit'>
-              <div className='sticky top-4'>
-                <header>
+              <div className='sticky top-4 max-w-2xl mx-auto md:mx-0'>
+                <header className='mb-12'>
                   <h3>Contact Information</h3>
                 </header>
+                <div className='space-y-4'>
+                  <div>
+                    <h4>Email Address</h4>
+                    <p className='text-sentence !mt-2'>contact@tinkerpro.ph</p>
+                  </div>
+                  <div>
+                    <h4>Local hotline</h4>
+                    <p className='text-sentence !mt-2'>(032) 384-8586</p>
+                  </div>
+                  <div>
+                    <h4>Mobile number</h4>
+                    <p className='text-sentence !mt-2'>+63 966 822 6024</p>
+                  </div>
+                  <div>
+                    <h4>Social</h4>
+                    <p className='text-sentence !mt-2 text-orange-500'>
+                      <a href='https://www.facebook.com/TinkerProHQ'>
+                        TinkerPro{" "}
+                        <ChevronRightIcon className='h-4 w-4 inline-block ml-2' />
+                      </a>
+                    </p>
+                  </div>
+                </div>
               </div>
             </aside>
           </div>
@@ -570,7 +611,7 @@ function OrderingDetails() {
                     {desc}
                   </p>
                   {index === 5 && (
-                    <Button variant='outline' asChild>
+                    <Button variant='outline' className='bg-background' asChild>
                       <Link
                         href='/docs'
                         className='flex !mt-4 flex-row items-center'>
@@ -604,11 +645,9 @@ function PackageDetails() {
           <div className='absolute top-0 hidden xs:flex z-20 inset-x-0 text-gray-300 flex-nowrap items-center ring-1 ring-gray-300 bg-gray-500/20 py-2 px-4 rounded-full w-fit mx-auto'>
             <InformationCircleIcon className='h-5 w-5 mr-2' />
             <p className='text-xs !mt-0 sm:text-sm font-medium leading-none'>
-              Monitors and peripherals brand may vary depending on available
-              stock
+              Monitors and peripherals may vary depending on available stock
             </p>
           </div>
-          {/* Semi carousel */}
           <div className='flex flex-row snap-mandatory snap-x flex-nowrap z-20 overflow-hidden hover:overflow-x-auto'>
             {packageItems.map(({ label, desc, ref, items }, index) => (
               <div
@@ -664,7 +703,7 @@ function Testimonials() {
         <h1 className='font-normal'>Catering to business needs seamlessly</h1>
         <hr className='h-2 mt-4 w-24 mx-auto rounded-full bg-orange-500' />
       </header>
-      <div className='grid grid-cols-1 sm:grid-cols-2 grid-flow-dense grid-rows-[masonry] md:grid-cols-4 gap-4 max-w-2xl md:max-w-none mx-auto'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 grid-flow-dense grid-rows-[masonry] md:grid-cols-4 gap-4 max-w-4xl md:max-w-none mx-auto'>
         {testomonials.map(({ name, pospackage, src, desc }, index) => (
           <div
             key={index}

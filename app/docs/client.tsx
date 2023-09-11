@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { createElement, useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  BookOpenIcon,
+  ComputerDesktopIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/outline";
 
 type Props = {};
 
@@ -47,14 +52,14 @@ function Header() {
           <Input
             placeholder='Search for guides..'
             type='text'
-            className='z-20 px-6 md:bg-gray-500/20 md:!border-gray-500 rounded-full md:text-lg text-base h-12 md:h-14'
+            className='z-20 px-6 !border-none rounded-full md:text-lg text-base h-12 md:h-14'
             value={searchTerm}
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
           />
           {isDropdownVisible && (
-            <div className='mt-4 rounded-lg z-50 border-gray-500 py-2 px-6 border bg-gray-500/20'>
+            <div className='mt-4 rounded-lg z-50 md:border-gray-500 py-2 px-6 border md:bg-gray-500/20'>
               <ul className='list-inside list-none ml-0'>
                 {noItemsFound ? (
                   <li className='text-gray-500 text-base'>No items found</li>
@@ -94,17 +99,17 @@ function ArticleLinks() {
         </div>
         <div className='basis-full md:basis-1/2 self-center'>
           <div className='gri-cols-1 xs:grid-cols-2 max-w-2xl text-center mx-auto grid gap-6'>
-            {pageLabel.map(({ link, label, desc }, index) => (
+            {pageLabel.map(({ link, label, icon }, index) => (
               <Button
                 key={index}
                 variant='outline'
-                className='p-10 rounded-lg'
+                className='p-10 rounded-lg group hover:border-orange-500 hover:bg-orange-50/30'
                 asChild>
                 <Link
                   href={link}
                   className='flex flex-col justify-center items-center gap-4 h-full'>
-                  <figure className='h-36'></figure>
-                  <h4>{label}</h4>
+                  <figure className='h-36'>{icon}</figure>
+                  <h4 className='group-hover:text-orange-500'>{label}</h4>
                 </Link>
               </Button>
             ))}
@@ -117,16 +122,28 @@ function ArticleLinks() {
 
 const pageLabel = [
   {
+    icon: createElement(BookOpenIcon, {
+      className: "h-full w-full text-orange-500 drop-shadow-2xl",
+      strokeWidth: 0.5,
+    }),
     link: "/docs/installing-the-pos-hardware",
     label: "Installing the POS Hardware",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, voluptas.",
   },
   {
+    icon: createElement(ComputerDesktopIcon, {
+      className: "h-full w-full text-orange-500 drop-shadow-2xl",
+      strokeWidth: 0.5,
+    }),
     link: "/docs/operating-the-pos-software",
     label: "Operating the POS Software",
     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, expedita!",
   },
   {
+    icon: createElement(WrenchScrewdriverIcon, {
+      className: "h-full w-full text-orange-500 drop-shadow-2xl",
+      strokeWidth: 0.5,
+    }),
     link: "/docs/troubleshooting",
     label: "Troubleshooting",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. In, consequuntur?",

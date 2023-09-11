@@ -26,7 +26,7 @@ const AboutUs = (props: Props) => {
           </div>
         </header>
         <div className='mt-12 md:mx-12'>
-          <div className='grid sm:grid-cols-2 gap-6 sm:!text-base md:!text-lg'>
+          <div className='grid sm:grid-cols-2 gap-6 text-sentence'>
             <section className='space-y-6'>
               <p className='indent-8'>
                 With a keen eye for the struggles of entrepreneurs trying to

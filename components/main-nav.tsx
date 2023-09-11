@@ -29,13 +29,15 @@ const Navbar = (props: Props) => {
           <div className='flex h-12 w-full flex-row items-center justify-between lg:justify-start'>
             <div className='flex flex-row gap-4 items-center'>
               <div className='w-40'>
-                <Image
-                  src='/icons/tinkerpro-icon.png'
-                  width={1000}
-                  height={1000}
-                  alt='TinkerPro'
-                  quality={100}
-                />
+                <Link href='/'>
+                  <Image
+                    src='/icons/tinkerpro-icon.png'
+                    width={1000}
+                    height={1000}
+                    alt='TinkerPro'
+                    quality={100}
+                  />
+                </Link>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

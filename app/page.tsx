@@ -10,6 +10,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 import React, { createElement } from "react";
 
 type Props = {};
@@ -39,9 +40,11 @@ function Hero() {
         </p>
         <Button
           size='xl'
-          className='mt-12 flex uppercase text-base mx-auto rounded-lg items-center'>
-          <CubeIcon className='h-5 w-5 mr-2' />
-          view pos packages
+          className='mt-12 uppercase text-base mx-auto rounded-lg'>
+          <Link href='/packages' className='flex items-center'>
+            <CubeIcon className='h-5 w-5 mr-2' />
+            view pos packages
+          </Link>
         </Button>
       </header>
       <div className='max-w-6xl mx-auto overflow-hidden'>
@@ -127,8 +130,11 @@ function CardBanner() {
           <Button
             variant='outline'
             size='xl'
-            className='border-orange-500 text-orange-500 flex items-center'>
-            View POS Packages <ChevronRightIcon className='h-4 w-4 ml-2' />
+            className='border-orange-500 text-orange-500 hover:border-orange-600 hover:bg-orange-50/30 hover:text-orange-600'
+            asChild>
+            <Link href='/packages' className='flex items-center'>
+              View POS Packages <ChevronRightIcon className='h-4 w-4 ml-2' />
+            </Link>
           </Button>
         </div>
       </div>

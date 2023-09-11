@@ -41,7 +41,6 @@ const ResellerPackage = (props: Props) => {
                   <span className='text-base font-semibold'>Tags</span>
                   <div className='flex items-center gap-2'>
                     <Badge className='text-sm'>Reseller Package</Badge>
-                    <Badge className='text-sm'>Guide</Badge>
                   </div>
                 </div>
               </h2>
@@ -153,7 +152,10 @@ const ResellerPackage = (props: Props) => {
                 We have special packages and offers for those who comply with
                 these requirements. Email us at{" "}
                 <Button variant='link' className='p-0 m-0 h-auto'>
-                  contact@tinkerpro.ph
+                  <a
+                    href={`https://mail.google.com/mail/u/0/?fs=1&to=contact@tinkerpro.ph&su=Reseller%20Package&body=${emailFormat}&tf=cm`}>
+                    contact@tinkerpro.ph
+                  </a>
                 </Button>{" "}
                 and expect a swift reply!{" "}
               </p>

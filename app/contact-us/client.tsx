@@ -135,7 +135,7 @@ const officeLocations = [
 
 const contactInfo = [
   { label: "Email Address", info: "contact@tinkerpro.ph", icon: EnvelopeIcon },
-  { label: "Local Hotline", info: "(032) 384-8586", icon: PhoneIcon },
+  { label: "Local hotline", info: "(032) 384-8586", icon: PhoneIcon },
   { label: "Mobile number", info: "+63 966 822 6024", icon: MobileIcon },
   {
     label: "Social",

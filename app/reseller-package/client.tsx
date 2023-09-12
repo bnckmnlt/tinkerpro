@@ -27,7 +27,7 @@ const ResellerPackage = (props: Props) => {
     document.execCommand("copy");
     document.body.removeChild(tempInput);
 
-    toast({ description: "✔️ Text copied successfully" });
+    toast({ description: "Text copied successfully" });
   }
 
   const emailFormat =

@@ -85,7 +85,7 @@ const Navbar = (props: Props) => {
                         <Button
                           variant='outline'
                           size='default'
-                          className='border-orange-500 mt-12 w-full border-2 text-orange-500 font-semibold hover:bg-gray-50/50 hover:text-orange-600 uppercase rounded-full'>
+                          className='border-orange-500 mt-12 w-full border-2 text-orange-500 font-semibold hover:bg-backgroubnd/50 hover:text-orange-600 uppercase rounded-full'>
                           Contact us
                         </Button>
                       </Link>
@@ -126,7 +126,7 @@ function Navlist() {
   return (
     <div className='flex w-full flex-col justify-end sm:flex-row'>
       <ul
-        className={`flex flex-grow flex-col list-none m-0 items-start gap-x-8 gap-y-6 border-slate-200 px-5 sm:grow-0 sm:flex-row sm:items-center sm:justify-between sm:border-r`}>
+        className={`flex flex-grow flex-col list-none m-0 items-start gap-x-8 gap-y-6 px-5 sm:grow-0 sm:flex-row sm:items-center sm:justify-between sm:border-r border-gray-600/30`}>
         {menuItems.map(({ path, label }, key) => (
           <Link href={path} key={key}>
             <li>
@@ -145,7 +145,7 @@ function Navlist() {
           <Button
             variant='outline'
             size='default'
-            className='border-orange-500 border-2 text-orange-500 font-semibold hover:bg-gray-50/50 hover:text-orange-600 uppercase rounded-full'>
+            className='border-orange-500 border-2 text-orange-500 font-semibold hover:bg-background/50 hover:text-orange-600 uppercase rounded-full'>
             Contact us
           </Button>
         </Link>

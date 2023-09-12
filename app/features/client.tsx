@@ -99,9 +99,10 @@ function ExtraFeatures() {
           <div className='space-y-2 ml-2'>
             {extraFeatures.map((item, index) => (
               <div key={index} className='flex flex-row items-center'>
-                <div className='rounded-full w-fit p-1 mr-4 flex items-center justify-center bg-foreground dark:bg-black/30 text-orange-500'>
-                  <CheckIcon className='h-4 w-4' />
-                </div>
+                <CheckIcon
+                  className='h-4 w-4 text-orange-500 mr-4'
+                  strokeWidth={6}
+                />
                 <p className='!mt-0 text-lg'>{item}</p>
               </div>
             ))}

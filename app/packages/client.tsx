@@ -59,7 +59,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 type Props = {};
 
@@ -78,7 +78,6 @@ const Packages = (props: Props) => {
 
 function OrderForm({ label }: { label: string }) {
   const [isLoading, setIsLoading] = useState(null);
-  const { toast } = useToast();
 
   const formSchema = z.object({
     pospackage: z.string().refine(
@@ -115,7 +114,6 @@ function OrderForm({ label }: { label: string }) {
       lastname: "",
       email: "",
       businessname: "",
-      posunits: "",
       note: "",
       useragrees: false,
     },
@@ -130,8 +128,8 @@ function OrderForm({ label }: { label: string }) {
     //   action: <ToastAction altText='Try again'>Try again</ToastAction>,
     // });
     toast({
-      title: "Sending request...",
-      description: "Processing. Please wait a moment.",
+      title: "Processing...",
+      description: "Sending your request. Please wait a moment.",
     });
   }
 
@@ -147,22 +145,17 @@ function OrderForm({ label }: { label: string }) {
         }`}>
         get a quote
       </DialogTrigger>
-      <DialogContent className='p-12 md:h-4/5 h-screen overflow-y-auto md:overflow-y-clip md:w-4/5 max-w-7xl w-full'>
+      <DialogContent className='p-12 md:h-[95%] h-full overflow-y-auto md:overflow-y-clip md:w-4/5 max-w-7xl w-full'>
         <DialogHeader>
           <DialogTitle className='border-b scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center uppercase'>
             get a quote
           </DialogTitle>
-          <DialogDescription className='!mt-4'>
-            <div className='flex flex-col items-center gap-2 p-2 border dark:border-sky-500 md:flex-row w-fit md:items-start rounded-lg mx-auto'>
-              <InformationCircleIcon className='h-5 w-5 hidden md:block dark:text-sky-500 mt-1' />
-              <p className='!mt-0 !text-sentence dark:text-sky-500'>
-                Online purchase of packages is currently unavailable. However,
-                you can request a quotation by filling out the form below.
-                <span className='block' /> If you need further assistance,
-                please don&apos;t hesitate to contact us through the following
-                communication channels:
-              </p>
-            </div>
+          <DialogDescription className='!mt-4 text-sentence text-muted-foreground text-center'>
+            Online purchase of packages is currently unavailable. However, you
+            can request a quotation by filling out the form below.
+            <span className='block' /> If you need further assistance, please
+            don&apos;t hesitate to contact us through the following
+            communication channels:
           </DialogDescription>
         </DialogHeader>
         <div className='mt-6 md:overflow-y-auto'>
@@ -301,7 +294,7 @@ function OrderForm({ label }: { label: string }) {
                             defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder='Select the number of POS units you want to purchase' />
+                                <SelectValue placeholder='Number of POS units you want to purchase' />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -398,15 +391,21 @@ function OrderForm({ label }: { label: string }) {
                 <div className='space-y-4'>
                   <div>
                     <h4>Email Address</h4>
-                    <p className='text-sentence !mt-2'>contact@tinkerpro.ph</p>
+                    <p className='text-muted-foreground text-sentence !mt-2'>
+                      contact@tinkerpro.ph
+                    </p>
                   </div>
                   <div>
                     <h4>Local hotline</h4>
-                    <p className='text-sentence !mt-2'>(032) 384-8586</p>
+                    <p className='text-muted-foreground text-sentence !mt-2'>
+                      (032) 384-8586
+                    </p>
                   </div>
                   <div>
                     <h4>Mobile number</h4>
-                    <p className='text-sentence !mt-2'>+63 966 822 6024</p>
+                    <p className='text-muted-foreground text-sentence !mt-2'>
+                      +63 966 822 6024
+                    </p>
                   </div>
                   <div>
                     <h4>Social</h4>
@@ -503,7 +502,10 @@ function PriceCard() {
                         {items.map((item, index) => (
                           <ol key={index}>
                             <div className='flex py-2 items-center tracking-tight'>
-                              <CheckCircleIcon className='mr-4 inline-block h-6 w-6 flex-shrink-0 text-amber-500' />
+                              <CheckIcon
+                                className='mr-4 inline-block h-4 w-4 flex-shrink-0 text-amber-500'
+                                strokeWidth={5}
+                              />
                               {label !== "Touch POS" ? (
                                 <span className='block text-sentence !font-normal'>
                                   {item}
@@ -524,7 +526,10 @@ function PriceCard() {
                       {items.map((item, index) => (
                         <ol key={index}>
                           <div className='flex py-2 items-center tracking-tight'>
-                            <CheckCircleIcon className='mr-4 inline-block h-6 w-6 flex-shrink-0 text-amber-500' />
+                            <CheckIcon
+                              className='mr-4 inline-block h-4 w-4 flex-shrink-0 text-amber-500'
+                              strokeWidth={6}
+                            />
                             {label !== "Touch POS" ? (
                               <span className='block text-sentence !font-normal'>
                                 {item}
@@ -566,7 +571,10 @@ function PriceCard() {
             <div className='grid gap-3 text-sm tracking-tight text-gray-700 dark:text-gray-300 sm:grid-cols-2 md:grid-cols-4'>
               {addons.map((item, index) => (
                 <div key={index} className='inline-flex items-center'>
-                  <CheckIcon className='h-4 w-4 text-green-500 mr-2' />
+                  <CheckIcon
+                    className='h-4 w-4 text-green-500 mr-2'
+                    strokeWidth={4}
+                  />
                   <span className='text-sm'>{item}</span>
                 </div>
               ))}
@@ -678,7 +686,10 @@ function PackageDetails() {
                             <li
                               key={index}
                               className='flex flex-row items-center border-b-2 border-dashed border-orange-100 px-2 py-4 last:border-b-0'>
-                              <CheckIcon className='mr-2 h-4 w-4 text-green-500 xs:h-5 xs:w-5' />
+                              <CheckIcon
+                                className='mr-2 h-4 w-4 text-green-500 xs:h-5 xs:w-5'
+                                strokeWidth={4}
+                              />
                               <span>{item}</span>
                             </li>
                           ))}

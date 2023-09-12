@@ -10,14 +10,17 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { MobileIcon } from "@radix-ui/react-icons";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Props = {};
 
 const ContactUs = (props: Props) => {
-  const { toast } = useToast();
-
   function handleCopyValue(value: string) {
     const tempInput = document.createElement("textarea");
     tempInput.value = value;
@@ -25,6 +28,8 @@ const ContactUs = (props: Props) => {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
+
+    toast({ description: "✔️ Text copied successfully" });
   }
 
   return (
@@ -84,21 +89,34 @@ const ContactUs = (props: Props) => {
                       </div>
                       <div>
                         <span className='block text-large'>{label}</span>
-                        <Button
-                          variant='link'
-                          onClick={() => handleCopyValue(info)}
-                          className='p-0 text-base'>
-                          {index === 3 ? (
-                            <a
-                              href='https://www.facebook.com/TinkerProHQ'
-                              className='flex items-center'>
-                              {info}
-                              <ChevronRightIcon className='h-4 w-4 ml-2' />
-                            </a>
-                          ) : (
-                            info
-                          )}
-                        </Button>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant='link'
+                                onClick={() =>
+                                  index !== 3 ? handleCopyValue(info) : null
+                                }
+                                className='p-0 text-base'>
+                                {index === 3 ? (
+                                  <a
+                                    href='https://www.facebook.com/TinkerProHQ'
+                                    className='flex items-center'>
+                                    {info}
+                                    <ChevronRightIcon className='h-4 w-4 ml-2' />
+                                  </a>
+                                ) : (
+                                  info
+                                )}
+                              </Button>
+                            </TooltipTrigger>
+                            {index !== 3 ? (
+                              <TooltipContent>
+                                <p>Copy contact info</p>
+                              </TooltipContent>
+                            ) : null}
+                          </Tooltip>
+                        </TooltipProvider>
                       </div>
                     </div>
                   ))}

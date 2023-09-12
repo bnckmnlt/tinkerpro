@@ -1,11 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+
+// components
 import Navbar from "@/components/main-nav";
 import Footer from "@/components/main-footer";
-import { Toaster } from "@/components/ui/toaster";
-import { Analytics } from "@vercel/analytics/react";
 
 const inter = Archivo({ subsets: ["latin"] });
 

@@ -3,6 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { toast } from "@/components/ui/use-toast";
+import {
   ArrowRightIcon,
   MinusSmallIcon,
   XMarkIcon,
@@ -19,6 +26,8 @@ const ResellerPackage = (props: Props) => {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
+
+    toast({ description: "✔️ Text copied successfully" });
   }
 
   const emailFormat =
@@ -94,12 +103,16 @@ const ResellerPackage = (props: Props) => {
                   <div className='border-b dark:border-b-gray-600/20 py-2.5 px-4'>
                     <div className='text-sm text-muted-foreground'>
                       To:{" "}
-                      <Button
-                        variant='link'
-                        onClick={() => handleCopyValue("contact@tinkerpro.ph")}
-                        className='p-0'>
-                        <span>contact@tinkerpro.ph</span>
-                      </Button>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button variant='link' className='p-0'>
+                              <span>contact@tinkerpro.ph</span>
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Copy text</TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   </div>
                   <div className='border-b dark:border-b-gray-600/20 py-2.5 px-4'>
@@ -133,12 +146,19 @@ const ResellerPackage = (props: Props) => {
                   </div>
                   <div className='border-t dark:border-t-gray-600/20'>
                     <div className='ml-auto w-fit border-l border-gray-600/20'>
-                      <Button
-                        variant='outline'
-                        className='border-none shadow-none'
-                        onClick={() => handleCopyValue(emailFormat)}>
-                        Copy
-                      </Button>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant='outline'
+                              className='border-none shadow-none'
+                              onClick={() => handleCopyValue(emailFormat)}>
+                              Copy
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Copy body text</TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   </div>
                 </div>

@@ -130,7 +130,7 @@ function CardBanner() {
           <Button
             variant='outline'
             size='xl'
-            className='border-orange-500 text-orange-500 hover:border-orange-600 hover:bg-orange-50/30 hover:text-orange-600'
+            className='border-orange-500 text-orange-500 hover:border-orange-600 hover:bg-background/30 hover:text-orange-600'
             asChild>
             <Link href='/packages' className='flex items-center'>
               View POS Packages <ChevronRightIcon className='h-4 w-4 ml-2' />

@@ -75,7 +75,7 @@ const Footer = (props: Props) => {
               </div>
             ))}
           </div>
-          <hr className='my-12 sm:my-16 md:my-12 bg-background' />
+          <hr className='my-12 sm:my-16 md:my-12 border-b border-gray-600/30' />
           <div className='flex flex-col items-start sm:mb-12 sm:flex-row gap-8 md:mb-0'>
             <div className='space-y-2'>
               <h5 className='text-base font-semibold'>TinkerPro</h5>

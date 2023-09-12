@@ -106,7 +106,10 @@ const ResellerPackage = (props: Props) => {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button variant='link' className='p-0'>
+                            <Button
+                              variant='link'
+                              className='p-0'
+                              onClick={() => handleCopyValue(emailFormat)}>
                               <span>contact@tinkerpro.ph</span>
                             </Button>
                           </TooltipTrigger>

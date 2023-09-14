@@ -4,15 +4,13 @@ const Mailgun = require("mailgun.js");
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({
   username: "api",
-  key: process.env.MAILGUN_API_KEY || "key-yourkeyhere",
+  key: process.env.MAILGUN_API_KEY,
 });
 
 const mailgunDomain = process.env.MAILGUN_DOMAIN;
 
 export async function POST(request) {
   const { from, info } = await request.json();
-  console.log(from);
-  console.log(info);
 
   try {
     const emailData = {

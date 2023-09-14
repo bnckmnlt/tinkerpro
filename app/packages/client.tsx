@@ -60,6 +60,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/components/ui/use-toast";
+import { UseNewRequest } from "../(hooks)/useUtilHooks";
 
 type Props = {};
 
@@ -77,7 +78,7 @@ const Packages = (props: Props) => {
 };
 
 function OrderForm({ label }: { label: string }) {
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = z.object({
     pospackage: z.string().refine(
@@ -120,17 +121,56 @@ function OrderForm({ label }: { label: string }) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // toast({
-    //   variant: "destructive",
-    //   title: "Something went wrong.",
-    //   description: "There was a problem with your request.",
-    //   action: <ToastAction altText='Try again'>Try again</ToastAction>,
-    // });
-    toast({
-      title: "Processing...",
-      description: "Sending your request. Please wait a moment.",
-    });
+    const request = UseNewRequest();
+
+    const requestData = {
+      from: values.email,
+      info: {
+        pospackage: values.pospackage,
+        firstname: values.firstname,
+        lastname: values.lastname,
+        businessname: values?.businessname,
+        posunits: values?.posunits,
+        note: values?.note,
+      },
+    };
+
+    try {
+      setIsLoading(true);
+      toast({
+        title: "Processing...",
+        description: "Sending your request. Please wait a moment.",
+      });
+      const response = await request.post(
+        "/email",
+        JSON.stringify(requestData)
+      );
+
+      if (response.status === 200) {
+        setIsLoading(false);
+        toast({
+          title: "Email sent",
+          description: "Your request has been sent.",
+        });
+      } else {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Something went wrong.",
+          description: response.data?.error,
+          action: <ToastAction altText='Try again'>Try again</ToastAction>,
+        });
+      }
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description: error,
+        action: <ToastAction altText='Try again'>Try again</ToastAction>,
+      });
+    }
   }
 
   return (
@@ -374,6 +414,7 @@ function OrderForm({ label }: { label: string }) {
                   </div>
                   <div className='w-full md:w-fit md:mx-0 mx-auto'>
                     <Button
+                      disabled={isLoading}
                       size='lg'
                       className='text-base w-full'
                       type='submit'>

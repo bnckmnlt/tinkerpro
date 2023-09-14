@@ -146,7 +146,6 @@ function OrderForm({ label }: { label: string }) {
         JSON.stringify(requestData)
       );
 
-      console.log(response);
       if (response.status === 201) {
         setIsLoading(false);
         toast({

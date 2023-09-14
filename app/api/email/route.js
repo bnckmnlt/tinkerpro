@@ -12,6 +12,10 @@ const mailgunDomain = process.env.MAILGUN_DOMAIN;
 export async function POST(request) {
   const { email, info } = await request.json();
 
+  const businessName = info?.businessname === "" ? "n/a" : info?.businessname;
+  const posUnits = info?.posunits === undefined ? "n/a" : info?.posunits;
+  const note = info?.note === "" ? "n/a" : info?.note;
+
   try {
     const emailData = {
       from: email,
@@ -23,9 +27,9 @@ export async function POST(request) {
         pospackage: info.pospackage,
         firstname: info.firstname,
         lastname: info.lastname,
-        businessname: info?.businessname,
-        posunits: info?.posunits,
-        note: info?.note,
+        businessname: businessName,
+        posunits: posUnits,
+        note: note,
       }),
     };
 

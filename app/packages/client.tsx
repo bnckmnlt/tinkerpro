@@ -146,7 +146,8 @@ function OrderForm({ label }: { label: string }) {
         JSON.stringify(requestData)
       );
 
-      if (response.status === 200) {
+      console.log(response);
+      if (response.status === 201) {
         setIsLoading(false);
         toast({
           title: "Email sent",

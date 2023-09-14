@@ -31,9 +31,12 @@ export async function POST(request) {
 
     await mg.messages.create(mailgunDomain, emailData);
 
-    return NextResponse.json({
-      message: "Email sent successfully",
-    });
+    return NextResponse.json(
+      {
+        message: "Email sent successfully",
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error in sending email:", error);
     return NextResponse.json(

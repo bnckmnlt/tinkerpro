@@ -1,9 +1,15 @@
 import axios from "axios";
 
+const API_KEY = process.env.API_SECRET_KEY;
+
 export function UseNewRequest() {
   return axios.create({
-    baseURL: `http://localhost:3000/api`,
-    headers: { "Content-Type": "application/json" },
+    baseURL: `${
+      process.env.NODE_ENV === "production"
+        ? "https://www.tinkerpro.vercel.app"
+        : "http://localhost:3000"
+    }/api`,
+    headers: { "Content-Type": "application/json", API_KEY: API_KEY },
     withCredentials: true,
   });
 }

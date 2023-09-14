@@ -124,7 +124,7 @@ function OrderForm({ label }: { label: string }) {
     const request = UseNewRequest();
 
     const requestData = {
-      from: values.email,
+      email: values.email,
       info: {
         pospackage: values.pospackage,
         firstname: values.firstname,

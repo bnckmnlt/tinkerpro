@@ -10,24 +10,23 @@ const mg = mailgun.client({
 const mailgunDomain = process.env.MAILGUN_DOMAIN;
 
 export async function POST(request) {
-  const { from, info } = await request.json();
+  const { email, info } = await request.json();
 
   try {
     const emailData = {
-      from: from,
+      from: email,
       to: `nodedevelopment.test@gmail.com`,
-      subject: `Purchase of ${info.pospackage}`,
-      html: `<div>
-      <header><h1>Purchase of ${info.pospackage}</h1>
-      <p>This is to notify that ${info.firstname} ${info.lastname} wants to order a ${info.pospackage} for its business "${info?.businessname}".</p>
-      </header>
-      <p className='text-lg text-orange-500 block'>First name: ${info.firstname}</p>
-      <p className='text-lg text-orange-500 block'>Last name: ${info.lastname}</p>
-      <p className='text-lg text-orange-500 block'>POS Package: ${info.pospackage}</p>
-      <p className='text-lg text-orange-500 block'>Business name: ${info?.businessname}</p>
-      <p className='text-lg text-orange-500 block'>Unit/s to be purchased: ${info?.posunits}</p>
-      <p className='text-lg text-orange-500 block'>Additional note: ${info?.note}</p>
-      </div>`,
+      subject: `Request quotation for ${info.pospackage}`,
+      template: "package quotation",
+      "h:X-Mailgun-Variables": JSON.stringify({
+        email: email,
+        pospackage: info.pospackage,
+        firstname: info.firstname,
+        lastname: info.lastname,
+        businessname: info?.businessname,
+        posunits: info?.posunits,
+        note: info?.note,
+      }),
     };
 
     await mg.messages.create(mailgunDomain, emailData);

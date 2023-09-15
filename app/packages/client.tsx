@@ -508,7 +508,7 @@ function PriceCard() {
                     : "bg-white dark:bg-background"
                 } first:bg-gradient-to-b md:first:order-2 md:last:order-3 h-full shadow-sm first:drop-shadow-lg first:h-fit from-amber-500 via-orange-500 to-orange-600 p-1.5 first:md:scale-110 border rounded-lg`}>
                 <div
-                  className={`flex flex-col h-full px-4 md:px-10 py-8 ${
+                  className={`flex flex-col h-full p-6 md:p-12 ${
                     label === "Touch POS"
                       ? "bg-black dark:bg-black/30 text-white"
                       : "bg-white dark:bg-background"
@@ -525,6 +525,29 @@ function PriceCard() {
                     </div>
                     <p className='text-base leading-relaxed'>{desc}</p>
                   </header>
+                  <div className='w-full hidden h-auto grow md:block'>
+                    <ul className='ml-2 mb-0'>
+                      {items.map((item, index) => (
+                        <ol key={index}>
+                          <div className='flex py-1.5 items-center tracking-tight'>
+                            <CheckIcon
+                              className='mr-4 inline-block h-4 w-4 flex-shrink-0 text-amber-500'
+                              strokeWidth={6}
+                            />
+                            {label !== "Touch POS" ? (
+                              <span className='block text-sentence !font-normal'>
+                                {item}
+                              </span>
+                            ) : (
+                              <span className='block bg-gradient-to-tr bg-clip-text text-transparent from-amber-400 via-amber-500 to-orange-500 text-sentence'>
+                                {item}
+                              </span>
+                            )}
+                          </div>
+                        </ol>
+                      ))}
+                    </ul>
+                  </div>
                   <OrderForm label={label} />
                   <Button
                     onClick={() => toggleinclusions(index)}
@@ -562,29 +585,6 @@ function PriceCard() {
                       </ul>
                     </div>
                   )}
-                  <div className='w-full hidden md:block'>
-                    <ul className='ml-2 mb-0'>
-                      {items.map((item, index) => (
-                        <ol key={index}>
-                          <div className='flex py-2 items-center tracking-tight'>
-                            <CheckIcon
-                              className='mr-4 inline-block h-4 w-4 flex-shrink-0 text-amber-500'
-                              strokeWidth={6}
-                            />
-                            {label !== "Touch POS" ? (
-                              <span className='block text-sentence !font-normal'>
-                                {item}
-                              </span>
-                            ) : (
-                              <span className='block bg-gradient-to-tr bg-clip-text text-transparent from-amber-400 via-amber-500 to-orange-500 text-sentence'>
-                                {item}
-                              </span>
-                            )}
-                          </div>
-                        </ol>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
               </div>
             ))}

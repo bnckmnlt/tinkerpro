@@ -770,7 +770,7 @@ function Testimonials() {
               </Avatar>
               <div className='ml-4'>
                 <span className='md:text-large block text-base xs:text-lg'>
-                  {name}
+                  &quot;{name}&quot;
                 </span>
                 <span className='text-sm xs:text-base group-first/card:text-orange-500 text-muted-foreground group-first:!text-base'>
                   {pospackage}
@@ -1067,22 +1067,22 @@ const orderingInfoItems = [
 
 const testomonials = [
   {
-    name: "Samgyup ni Bry",
+    name: "HapticFeeds",
     pospackage: "Touch POS",
     src: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80",
     desc: "Using the Touch POS package has transformed the way we handle transactions, making every sale smooth and efficient.",
   },
   {
-    name: "Samgyup ni Bry",
-    pospackage: "Touch POS",
-    src: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80",
-    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur dignissimos harum quasi hic magnam doloremque explicabo voluptatibus id quaerat",
+    name: "May Cafe",
+    pospackage: "All-in-One POS",
+    src: "https://images.unsplash.com/photo-1620194544222-8c956ca15f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80",
+    desc: "Implementing the All-in-One POS package has been a game-changer for our business. It streamlines our operations, from inventory management to sales tracking, and enhances the overall customer experience. Highly recommended!",
   },
   {
-    name: "Samgyup ni Bry",
-    pospackage: "Touch POS",
-    src: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80",
-    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur dignissimos harum quasi hic magnam doloremque explicabo voluptatibus id quaerat",
+    name: "Light Tech PH",
+    pospackage: "Standard POS",
+    src: "https://images.unsplash.com/photo-1622630732278-ca6d08c52b6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2047&q=80",
+    desc: "The Standard POS package has simplified our point-of-sale operations, making it incredibly user-friendly for our staff. It's a reliable solution that meets all our requirements and ensures every transaction is seamless. We couldn't be happier with it.",
   },
 ];
 

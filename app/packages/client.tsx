@@ -761,7 +761,7 @@ function Testimonials() {
             key={index}
             className='rounded-lg group/card w-full first:sm:col-span-2 justify-center flex flex-col hover:translate-y-1 transition duration-200 ease-in-out delay-75 first:bg-foreground dark:first:text-white dark:first:bg-black/30 first:text-background first:rounded-xl first:md:col-start-2 border bg-background p-8'>
             <p className='mb-6 group-first/card:font-medium font-normal text-sm xs:text-base md:text-lg'>
-              {desc}
+              &quot;{desc}&quot;
             </p>
             <div className='flex flex-nowrap items-center'>
               <Avatar>
@@ -770,7 +770,7 @@ function Testimonials() {
               </Avatar>
               <div className='ml-4'>
                 <span className='md:text-large block text-base xs:text-lg'>
-                  &quot;{name}&quot;
+                  {name}
                 </span>
                 <span className='text-sm xs:text-base group-first/card:text-orange-500 text-muted-foreground group-first:!text-base'>
                   {pospackage}

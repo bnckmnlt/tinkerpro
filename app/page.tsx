@@ -40,10 +40,10 @@ function Hero() {
         </p>
         <Button
           size='xl'
-          className='mt-12 uppercase text-base mx-auto rounded-lg'>
+          className='mt-12 text-base font-semibold mx-auto rounded-lg'>
           <Link href='/packages' className='flex items-center'>
-            <CubeIcon className='h-5 w-5 mr-2' />
-            view pos packages
+            <CubeIcon className='h-5 w-5 mr-2' strokeWidth={2} />
+            View POS Packages
           </Link>
         </Button>
       </header>

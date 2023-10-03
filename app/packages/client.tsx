@@ -590,7 +590,59 @@ function PriceCard() {
             ))}
           </div>
         </TabsContent>
-        <TabsContent value='nonbirpackages'></TabsContent>
+        <TabsContent value='nonbirpackages'>
+          <div className='flex flex-col my-24 md:my-32 max-w-7xl gap-12 md:gap-20 mx-auto'>
+            {nonBirPackages.map(({ label, desc, img, price, items }, index) => (
+              <div
+                key={index}
+                className='border rounded-2xl flex flex-col even:md:flex-row-reverse md:flex-row p-8 md:gap-14'>
+                <figure className='relative flex items-center justify-center md:basis-1/2 w-full shrink z-10'>
+                  <Image
+                    src={img}
+                    alt={label}
+                    width={400}
+                    height={400}
+                    quality={100}
+                  />
+                </figure>
+                <div className='basis-full md:basis-full flex flex-col justify-center py-6'>
+                  <div className='flex-col-reverse flex mb-12 items-start justify-between gap-6'>
+                    <header className=''>
+                      <h3>{label}</h3>
+                      <p>{desc}</p>
+                    </header>
+                    <div>
+                      <span className='text-lead text-sm md:!text-base whitespace-nowrap'>
+                        Package Price
+                      </span>
+                      <h2>{price.php}</h2>
+                    </div>
+                  </div>
+                  <div className='flex items-center justify-center mb-6 flex-none gap-4'>
+                    <hr className='h-px flex-auto' />
+                    <p className='text-base font-semibold !mt-0 text-indigo-500'>
+                      Package Inclusions
+                    </p>
+                    <hr className='h-px flex-auto' />
+                  </div>
+                  <div className='grid sm:grid-cols-2'>
+                    {items.map((item, index) => (
+                      <div
+                        key={index}
+                        className='flex flex-row py-2 md:py-1 gap-4 items-center'>
+                        <CheckIcon
+                          className='h-5 w-5 text-indigo-500'
+                          strokeWidth={4}
+                        />
+                        <span className='font-medium basis-full'>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
       </Tabs>
       <div className='my-16 rounded-lg border px-12 py-10 max-w-xl md:max-w-7xl mx-auto'>
         <div className='flex flex-col md:flex-row'>
@@ -962,6 +1014,56 @@ const cardItems = [
       "Keyboard and Mouse",
       "Mousepad",
       "Thermal Papers",
+    ],
+  },
+];
+
+const nonBirPackages = [
+  {
+    label: "Windows Tablet POS",
+    desc: "Compact in size yet powerful, making it ideal for small kiosks r limited store spaces. Best used for dedicated Point of Sale operations.",
+    img: "/package_images/windowstablet.png",
+    price: { usd: 352, php: "19,990" },
+    items: [
+      "Point of Sale (POS) Software",
+      "10.8 inches Windows Tablet POS (2GB RAM, 32GB Storage)",
+      "5 Bills Automatic Cash Drawer",
+      "58mm Thermal Printer",
+      "1D Barcode Scanner with Stand",
+      "A4Tech Keyboard and Mouse",
+      "20 pcs. Thermal Papers",
+    ],
+  },
+  {
+    label: "Brand new and Heady duty Desktop POS",
+    desc: "This system effortleslly handles most important business oparations - Point of Sale, document processing managing your business online, ad creation, and more. A great investment towards business success.",
+    img: "/package_images/windowstablet.png",
+    price: { usd: 493, php: "27,990" },
+    items: [
+      "Point of Sale (POS) Software",
+      "Mini-PC System Unit (8GB RAM, 120GB Storage)",
+      '19" HD Monitor',
+      "5 Bills Automatic Cash Drawer",
+      "58mm Thermal Printer",
+      "1D Barcode Scanner with Stand",
+      "A4Tech Keyboard and Mouse",
+      "20 pcs. Thermal Papers",
+    ],
+  },
+  {
+    label: "Refurbished System Unit",
+    desc: "Gently used system unit partnered with brand new parts, this system offers impressive performance. Ideal for dedicated Point of Sale and light document tasks. Your smart choice for cost-effectiveness and reliability",
+    img: "/package_images/windowstablet.png",
+    price: { usd: 405, php: "22,990" },
+    items: [
+      "Point of Sale (POS) Software",
+      "Mini-PC System Unit (4GB RAM, 120GB Storage) - Refurbished",
+      '19" HD Monitor',
+      "5 Bills Automatic Cash Drawer",
+      "58mm Thermal Printer",
+      "1D Barcode Scanner with Stand",
+      "A4Tech Keyboard and Mouse",
+      "20 pcs. Thermal Papers",
     ],
   },
 ];

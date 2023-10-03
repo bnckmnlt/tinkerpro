@@ -25,9 +25,9 @@ function Hero() {
     <div className='container section-whitespace mb-32'>
       <div className='flex flex-col'>
         <Link href=''>
-          <div className='border rounded-full dark:hover:bg-slate-900/30 hover:bg-gray-50 dark:border-gray-600/30 flex items-center mx-auto mb-6 flex-row gap-2 px-2 py-1.5 border-slate-900/30 w-fit'>
-            <div className='px-4 py-0.5 sm:py-1.5 rounded-full bg-orange-500'>
-              <span className='text-white text-xs xs:text-sm sm:text-base font-semibold uppercase'>
+          <div className='border rounded-full truncate dark:hover:bg-slate-900/30 hover:bg-gray-50 dark:border-gray-600/30 flex items-center mx-auto mb-6 flex-row gap-2 px-2 py-1.5 border-slate-900/30 w-fit'>
+            <div className='px-4 py-0.5 sm:!py-1 rounded-full bg-orange-500'>
+              <span className='text-white text-xs xs:text-sm font-semibold uppercase'>
                 New
               </span>
             </div>
@@ -90,11 +90,29 @@ function SoftwareFeatures() {
           strategy.
         </p>
       </header>
-      <div className='grid grid-cols-1 md:grid-cols-2'>
-        <div className='basis-full md:basis-1/2'>
-          <figure></figure>
+      <div className='grid grid-cols-1 gap-12 md:grid-cols-2'>
+        <div className='basis-full my-auto md:basis-1/2'>
+          <figure className='md:py-14'>
+            <div className='relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[294px] md:max-w-[512px]'>
+              <div className='rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white dark:bg-gray-800'>
+                <img
+                  src='https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen.png'
+                  className='dark:hidden h-[156px] md:h-[278px] w-full rounded-xl'
+                  alt=''
+                />
+                <img
+                  src='https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen-dark.png'
+                  className='hidden dark:block h-[156px] md:h-[278px] w-full rounded-lg'
+                  alt=''
+                />
+              </div>
+            </div>
+            <div className='relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]'>
+              <div className='absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-800'></div>
+            </div>
+          </figure>
         </div>
-        <div className='basis-full md:basis-1/2'>
+        <div className='basis-full my-auto md:basis-1/2'>
           <div className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
             {featureCard.map(({ img, label, desc }, index) => (
               <div
@@ -148,7 +166,7 @@ function ExtraFeatures() {
                   className='h-4 w-4 text-orange-500 mr-4'
                   strokeWidth={6}
                 />
-                <p className='!mt-0 text-lg'>{item}</p>
+                <p className='!mt-0 text-lg basis-full'>{item}</p>
               </div>
             ))}
           </div>
